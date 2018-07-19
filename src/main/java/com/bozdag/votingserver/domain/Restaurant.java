@@ -17,6 +17,12 @@ public class Restaurant {
 
     private Restaurant() {} // JPA Only
 
+    public Restaurant(String name, String description, String address) {
+        this.name = name;
+        this.description = description;
+        this.address = address;
+    }
+
     public Long getId() {
         return id;
     }

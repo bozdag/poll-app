@@ -11,9 +11,11 @@ public class Vote {
     private Long id;
 
     @OneToOne
+    @JoinColumn(name = "RESTAURANT_ID")
     private Restaurant restaurant;
 
     @OneToOne
+    @JoinColumn(name = "VOTER_ID")
     private Voter voter;
 
     @JsonIgnore
@@ -21,6 +23,11 @@ public class Vote {
     private Election election;
 
     private Vote() { } // JPA only
+
+    public Vote(Restaurant restaurant, Voter voter) {
+        this.restaurant = restaurant;
+        this.voter = voter;
+    }
 
     public Long getId() {
         return id;
@@ -32,5 +39,13 @@ public class Vote {
 
     public Voter getVoter() {
         return voter;
+    }
+
+    public Election getElection() {
+        return election;
+    }
+
+    public void setElection(Election election) {
+        this.election = election;
     }
 }

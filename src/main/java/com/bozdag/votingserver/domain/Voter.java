@@ -23,6 +23,13 @@ public class Voter {
 
     private Voter(){ } // JPA only
 
+    public Voter(String username, String password, String name, String surname) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+    }
+
     public Long getId() {
         return id;
     }
