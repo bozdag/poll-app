@@ -34,7 +34,7 @@ public class RestaurantRestController {
     }
 
     @PostMapping
-    ResponseEntity<?> create(@RequestBody Restaurant input) {
+    ResponseEntity create(@RequestBody Restaurant input) {
         Restaurant result = restaurantRespository.save(new Restaurant(  input.getName(),
                                                                         input.getDescription(), input.getAddress()));
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()

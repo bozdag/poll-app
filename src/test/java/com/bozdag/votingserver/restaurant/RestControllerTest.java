@@ -70,8 +70,8 @@ public class RestControllerTest {
         this.mockMvc = webAppContextSetup(webApplicationContext).build();
 
         this.restaurantRepository.deleteAllInBatch();
-        restaurantRepository.save(new Restaurant("Duble", "Doner", "Bilkent Ankara"));
-        restaurantRepository.save(new Restaurant("Il Forno", "Pizza", "Bilkent Ankara"));
+        restaurants.add(restaurantRepository.save(new Restaurant("Duble", "Doner", "Bilkent Ankara")));
+        restaurants.add(restaurantRepository.save(new Restaurant("Il Forno", "Pizza", "Bilkent Ankara")));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class RestControllerTest {
                 post("/restaurants/aspava")
                     .content(json(new Restaurant(null, null, null)))
                     .contentType(contentType))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isMethodNotAllowed());
     }
 
     @Test
@@ -89,7 +89,7 @@ public class RestControllerTest {
                 get("/restaurants/" + restaurants.get(0).getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.id", is(restaurants.get(0).getId())));
+                .andExpect(jsonPath("$.id", is(restaurants.get(0).getId().intValue())));
     }
 
     @Test
@@ -109,7 +109,7 @@ public class RestControllerTest {
      mockMvc.perform( post("/restaurants")
                         .contentType(contentType)
                         .content(jsRestaurant))
-             .andExpect(status().isOk());
+             .andExpect(status().isCreated());
     }
 
     // Converts object to json
